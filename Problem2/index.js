@@ -19,7 +19,6 @@ const solution1 = (arr) => {
   const { firstNumber, secondNumber } = nums;
   return [firstNumber, secondNumber];
 };
-console.log(solution1([1, 7, 2, 0, 1, 3]));
 
 const solution1OP = (arr) => {
   let area = 0;
@@ -35,6 +34,26 @@ const solution1OP = (arr) => {
   }
   return area;
 };
-console.log(solution1OP([1, 5, 4, 3]));
 
 // Time complexity of both solution is O of square and will increase if array size increased
+
+const optimizedSolution = (arr) => {
+  let left = 0;
+  let right = arr.length - 1;
+  let area = 0;
+
+  while (left < right) {
+    const tempArea = Math.min(arr[left], arr[right]) * (right - left);
+    area = Math.max(area, tempArea);
+    if (arr[left] < arr[right]) {
+      left++;
+    } else right--;
+  }
+  return area;
+};
+
+console.log(optimizedSolution([1, 8, 6, 2, 5, 4, 8, 3, 7]));
+
+// key points => the value at the index left is less than right => increment by 1 on left side
+// and if the value is greater at the right then decrement right by one
+// Technique used to optimize this problem is called TWO SHIFTING POINTER
