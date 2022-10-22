@@ -14,7 +14,7 @@ const solution = (arr) => {
       maxRight = Math.max(maxRight, arr[right]);
     }
     const currentWater = Math.min(maxLeft, maxRight) - currentHeight;
-    if (currentWater > 0) total = total + currentWater;
+    if (currentWater >= 0) total = total + currentWater;
   }
   return total;
 };
@@ -50,3 +50,27 @@ console.log(solution([4, 2, 0, 3, 2, 5]));
 //rightLoop
 // right =1, maxRight =5
 // cW = 4-0 =0 so total = 1
+
+const optimzedSolutionTry = (height) => {
+  let leftIndex = 0;
+  let rightIndex = height.length - 1;
+  let leftMax = 0;
+  let rightMax = 0;
+  let total = 0;
+
+  while (leftIndex !== rightIndex) {
+    if (height[leftIndex] <= height[rightIndex]) {
+      leftMax = Math.max(height[leftIndex], leftMax);
+      total = total + leftMax - height[leftIndex];
+      leftIndex++;
+    } else {
+      rightMax = Math.max(height[rightIndex], rightMax);
+      total = total + rightMax - height[rightIndex];
+      rightIndex--;
+    }
+  }
+
+  return total;
+};
+
+console.log(optimzedSolutionTry([4, 2, 0, 3, 2, 5]));
