@@ -42,7 +42,8 @@
 //   console.log(maxLength);
 // };
 
-var lengthOfLongestSubstring = (str) => {
+// RunTime Of the below solution is in between 50-140ms
+var lengthOfLongestSubstring1 = (str) => {
   let output = "";
   let maxLength = 0;
   for (let ch of str) {
@@ -54,10 +55,36 @@ var lengthOfLongestSubstring = (str) => {
     }
     maxLength = Math.max(maxLength, output.length);
   }
-  console.log(maxLength);
+  return maxLength;
 };
 
-lengthOfLongestSubstring("dvdf");
+// RunTime of this solution is over 900ms
+var lengthOfLongestSubstring2 = function (s) {
+  let maxCount = 0;
+  for (let i = 0; i < s.length; i++) {
+    let isUnique = true;
+    let count = 0;
+    let p = i;
+    let obj = {};
+    while (isUnique && p < s.length) {
+      if (!obj[s[p]]) {
+        obj[s[p]] = s[p];
+        count++;
+        p++;
+      } else isUnique = false;
+      maxCount = Math.max(maxCount, count);
+    }
+  }
+  return maxCount;
+};
+console.log(lengthOfLongestSubstring1("dvdf"));
+console.log(lengthOfLongestSubstring2("dvdf"));
+console.log(lengthOfLongestSubstring1("abcabcbb"));
+console.log(lengthOfLongestSubstring2("abcabcbb"));
+console.log(lengthOfLongestSubstring1(" "));
+console.log(lengthOfLongestSubstring2(" "));
+console.log(lengthOfLongestSubstring1(""));
+console.log(lengthOfLongestSubstring2(""));
 
 // obj ={}
 // obj ={a}
